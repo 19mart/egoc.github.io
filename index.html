@@ -11,7 +11,6 @@
             box-sizing: border-box;
         }
 
-        /* Arka plan videosu */
         .video-background {
             position: fixed;
             top: 0;
@@ -23,27 +22,26 @@
             filter: brightness(0.7);
         }
 
-        /* Hoparlör simgesi */
         .sound-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 32px; /* Boyutu %20 küçülttük (40px'den 32px'e) */
+            width: 32px; 
             height: 32px;
             cursor: pointer;
             z-index: 1;
             transition: all 0.3s ease;
             background-size: contain;
             background-repeat: no-repeat;
-            background-image: url('speaker-on.png'); /* Ses açık simgesi */
+            background-image: url('speaker-on.png'); 
         }
 
-        /* Ses kapalıyken simgeyi değiştir */
+
         .sound-toggle.muted {
-            background-image: url('speaker-off.png'); /* Ses kapalı simgesi */
+            background-image: url('speaker-off.png'); 
         }
 
-        /* Sallanma animasyonu (yukarı-aşağı) */
+
         .sound-toggle.shake {
             animation: shake 0.5s ease-in-out;
         }
@@ -57,10 +55,10 @@
             100% { transform: translateY(0); }
         }
 
-        /* Responsive tasarım */
+
         @media (max-width: 600px) {
             .sound-toggle {
-                width: 26px; /* Boyutu %20 küçülttük (32px'den 26px'e) */
+                width: 26px; 
                 height: 26px;
                 top: 15px;
                 right: 15px;
@@ -71,7 +69,6 @@
 <body>
     <video autoplay loop class="video-background" id="background-video">
         <source src="video.mp4" type="video/mp4">
-        Tarayıcınız video oynatmayı desteklemiyor.
     </video>
 
     <div class="sound-toggle" id="sound-toggle"></div>
@@ -80,7 +77,7 @@
         const video = document.getElementById('background-video');
         const soundToggle = document.getElementById('sound-toggle');
 
-        // Sesli oynatmayı başlat
+
         video.play().then(() => {
             video.muted = false;
         }).catch((error) => {
@@ -91,7 +88,7 @@
             }, { once: true });
         });
 
-        // Hoparlör simgesine tıklama olayı
+
         soundToggle.addEventListener('click', () => {
             if (video.muted) {
                 video.muted = false;
@@ -100,11 +97,11 @@
                 video.muted = true;
                 soundToggle.classList.add('muted');
             }
-            // Sallanma animasyonu ekle
+
             soundToggle.classList.add('shake');
             setTimeout(() => {
                 soundToggle.classList.remove('shake');
-            }, 500); // Animasyon süresiyle eşleşiyor
+            }, 500); 
         });
     </script>
 </body>
