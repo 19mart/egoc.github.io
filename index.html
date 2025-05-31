@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Porno sitesi</title>
+    <title>Porno Sitesi</title>
     <style>
         * {
             margin: 0;
@@ -28,34 +28,40 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 32px; /* Simge boyutu */
+            width: 32px; /* Boyutu %20 küçülttük (40px'den 32px'e) */
             height: 32px;
             cursor: pointer;
             z-index: 1;
             transition: all 0.3s ease;
-            background-image: url('new-speaker.png'); /* Yeni hoparlör simgesi */
             background-size: contain;
             background-repeat: no-repeat;
-            filter: grayscale(100%) brightness(0); /* Simgeyi siyah yap */
+            background-image: url('speaker-on.png'); /* Ses açık simgesi */
         }
 
-        /* Ses kapalıyken çizgi efekti */
-        .sound-toggle.muted::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -10%;
-            width: 120%;
-            height: 2px;
-            background-color: red;
-            transform: rotate(-45deg);
+        /* Ses kapalıyken simgeyi değiştir */
+        .sound-toggle.muted {
+            background-image: url('speaker-off.png'); /* Ses kapalı simgesi */
+        }
+
+        /* Sallanma animasyonu (yukarı-aşağı) */
+        .sound-toggle.shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0% { transform: translateY(0); }
+            20% { transform: translateY(-5px); }
+            40% { transform: translateY(5px); }
+            60% { transform: translateY(-5px); }
+            80% { transform: translateY(5px); }
+            100% { transform: translateY(0); }
         }
 
         /* Responsive tasarım */
         @media (max-width: 600px) {
             .sound-toggle {
-                width: 24px;
-                height: 24px;
+                width: 26px; /* Boyutu %20 küçülttük (32px'den 26px'e) */
+                height: 26px;
                 top: 15px;
                 right: 15px;
             }
@@ -65,6 +71,7 @@
 <body>
     <video autoplay loop class="video-background" id="background-video">
         <source src="video.mp4" type="video/mp4">
+        Tarayıcınız video oynatmayı desteklemiyor.
     </video>
 
     <div class="sound-toggle" id="sound-toggle"></div>
@@ -93,6 +100,11 @@
                 video.muted = true;
                 soundToggle.classList.add('muted');
             }
+            // Sallanma animasyonu ekle
+            soundToggle.classList.add('shake');
+            setTimeout(() => {
+                soundToggle.classList.remove('shake');
+            }, 500); // Animasyon süresiyle eşleşiyor
         });
     </script>
 </body>
